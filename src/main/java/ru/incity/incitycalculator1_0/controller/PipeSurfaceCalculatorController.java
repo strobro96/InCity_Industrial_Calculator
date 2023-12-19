@@ -3,8 +3,8 @@ package ru.incity.incitycalculator1_0.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import ru.incity.incitycalculator1_0.model.PipeSurfaceCalculator;
-import ru.incity.incitycalculator1_0.service.PipeSurfaceCalculatorService;
+import ru.incity.incitycalculator1_0.model.pipesurface.PipeSurfaceCalculator;
+import ru.incity.incitycalculator1_0.service.pipesurface.PipeSurfaceCalculatorService;
 import java.util.List;
 
 @Controller

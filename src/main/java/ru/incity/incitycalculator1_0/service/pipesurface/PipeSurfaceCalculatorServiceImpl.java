@@ -1,8 +1,9 @@
-package ru.incity.incitycalculator1_0.service;
+package ru.incity.incitycalculator1_0.service.pipesurface;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.incity.incitycalculator1_0.dao.PipeSurfaceCalculatorDao;
-import ru.incity.incitycalculator1_0.model.PipeSurfaceCalculator;
+import ru.incity.incitycalculator1_0.dao.pipesurface.PipeSurfaceCalculatorDao;
+import ru.incity.incitycalculator1_0.model.pipesurface.PipeSurfaceCalculator;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class PipeSurfaceCalculatorServiceImpl implements PipeSurfaceCalculatorSe
 
     private final PipeSurfaceCalculatorDao pipeSurfaceCalculatorDao;
 
+    @Autowired
     public PipeSurfaceCalculatorServiceImpl(PipeSurfaceCalculatorDao pipeSurfaceCalculatorDao) {
         this.pipeSurfaceCalculatorDao = pipeSurfaceCalculatorDao;
     }

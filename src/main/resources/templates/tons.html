@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-    <title>Выполнение проверки расчета поверхности труб</title>
+    <title>Перевод стальной трубы из метров в тонны</title>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
@@ -61,57 +61,74 @@
 <br>
 <div class="row">
     <div class="col-1"></div>
-<div class="col-7">
+    <div class="col-7">
     <div class="text-center">
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">Наименование трубопровода</th>
-                <th scope="col">Удалить</th>
                 <th scope="col">Длина (L), м.</th>
-                <th scope="col">Площадь поверхности трубы (S), м<sup>2</sup>.</th>
+                <th scope="col">Списано, т.</th>
+                <th scope="col">Удалить</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="pipe : ${allPipes}">
-                <td th:text="${pipe.pipeDiameterEnum.getDisplayName()}"></td>
+            <tr th:each="conv : ${allConverters}">
+                <td th:text="${conv.weightOfOneMeterEnum.getDisplayName()}"></td>
+                <td th:text="${conv.getLength()}"></td>
+                <td th:text="${conv.calculateLengthInTons()}"></td>
                 <td>
-                    <form th:action="@{table/delete/{id}(id=${allPipes.indexOf(pipe)})}" th:method="DELETE"><input
+                    <form th:action="@{tons/delete/{id}(id=${allConverters.indexOf(conv)})}" th:method="DELETE"><input
                             type="submit" class="btn btn-danger" value="X"></form>
                 </td>
-                <td th:text="${pipe.getLength()}"></td>
-                <td th:text="${pipe.calculatePipeSurface()}"></td>
-            </tr>
-            <tr>
-                <td colspan="3"><b>Итого:</b></td>
-                <td th:text="${sum}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
 
+<br>
+
 <!-- Pipe select -->
-
 <div class="col-4">
-    <form th:action="@{/table}" th:object="${pipeSurfaceCalculator}" th:method="POST">
+    <form th:action="@{/tons}" th:object="${metersToTonsConverter}" th:method="POST">
 
-        <select th:field="*{pipeDiameterEnum}">
-            <option th:each="diameter : ${T(ru.incity.incitycalculator1_0.common.PipeDiameterEnum).values()}"
+        <select th:field="*{weightOfOneMeterEnum}">
+            <option th:each="diameter : ${T(ru.incity.incitycalculator1_0.common.WeightOfOneMeterEnum).values()}"
                     th:value="${diameter}" th:text="${diameter.getDisplayName()}"></option>
         </select>
         <br>
         <br>
-        <label for="length">Длина (L), м.</label>
+        <label for="length">Списано, м</label>
         <input type="text" th:field="*{length}" id="length">
         <br>
         <br>
         <input type="submit" class="btn btn-outline-secondary" value="Добавить">
     </form>
-</div>
-</div>
 
 
+</div>
+</div>
+<br>
+
+<!-- Summary -->
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-sm-4">
+    <b>Сводные данные:</b>
+
+    <table class="table table-bordered">
+        <tr th:each="entry : ${sum}">
+            <td th:text="${entry.key}"></td>
+            <td th:text="${entry.value}">
+        </tr>
+        <tr>
+            <td><b>Итого:</b></td>
+            <td th:text="${onlySum}"></td>
+        </tr>
+    </table>
+</div>
+</div>
 
 </body>
 </html>

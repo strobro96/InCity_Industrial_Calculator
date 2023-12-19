@@ -1,7 +1,7 @@
-package ru.incity.incitycalculator1_0.dao;
+package ru.incity.incitycalculator1_0.dao.pipesurface;
 
 import org.springframework.stereotype.Repository;
-import ru.incity.incitycalculator1_0.model.PipeSurfaceCalculator;
+import ru.incity.incitycalculator1_0.model.pipesurface.PipeSurfaceCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class PipeSurfaceCalculatorDaoImpl implements PipeSurfaceCalculatorDao {
 
-    private final ArrayList<PipeSurfaceCalculator> list = new ArrayList<>();
+    private final List<PipeSurfaceCalculator> list = new ArrayList<>();
 
     private double sum;
 
